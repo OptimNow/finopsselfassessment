@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        heading: ['Manrope', 'sans-serif'],
+        body: ['Almarai', 'sans-serif'],
+        label: ['Ayuthaya', 'serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
