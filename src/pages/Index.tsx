@@ -83,8 +83,8 @@ const generateRecommendations = (
     recommendations.push("🌱 **Advanced**: Integrate sustainability into FinOps by tracking and optimizing carbon emissions alongside costs.");
   }
 
-  // Return top 6 recommendations
-  return recommendations.slice(0, 6);
+  // Return top 5 recommendations
+  return recommendations.slice(0, 5);
 };
 
 const calculateResults = (answers: Answer[]): AssessmentResult => {

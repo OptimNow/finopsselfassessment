@@ -94,14 +94,21 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
             Key Recommendations
           </h2>
           <ul className="space-y-4">
-            {result.recommendations.map((recommendation, index) => (
-              <li key={index} className="flex items-start gap-3 p-4 rounded-lg bg-secondary/50">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">
-                  {index + 1}
-                </span>
-                <span className="text-foreground">{recommendation}</span>
-              </li>
-            ))}
+            {result.recommendations.map((recommendation, index) => {
+              const parts = recommendation.split(/(\*\*.*?\*\*)/g);
+              return (
+                <li key={index} className="flex items-start gap-3 p-4 rounded-lg bg-secondary/50">
+                  <span className="text-foreground">
+                    {parts.map((part, i) => {
+                      if (part.startsWith('**') && part.endsWith('**')) {
+                        return <strong key={i}>{part.slice(2, -2)}</strong>;
+                      }
+                      return part;
+                    })}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </Card>
 
