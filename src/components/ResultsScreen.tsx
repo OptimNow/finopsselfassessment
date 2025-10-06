@@ -75,9 +75,9 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
                       dimension.score >= 4
                         ? "bg-accent"
                         : dimension.score >= 3
-                          ? "bg-primary"
+                          ? "bg-muted"
                           : dimension.score >= 2
-                            ? "bg-yellow-500"
+                            ? "bg-orange-500"
                             : "bg-destructive"
                     }`}
                     style={{ width: `${(dimension.score / 5) * 100}%` }}
