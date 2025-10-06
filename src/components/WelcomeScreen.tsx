@@ -68,7 +68,7 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">•</span>
-              <span>14 questions covering key FinOps dimensions</span>
+              <span>16 questions covering key FinOps dimensions</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">•</span>
