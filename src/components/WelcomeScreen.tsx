@@ -8,15 +8,13 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'var(--gradient-subtle)' }}>
-      <Card className="max-w-2xl w-full p-8 md:p-12" style={{ boxShadow: 'var(--shadow-medium)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "var(--gradient-subtle)" }}>
+      <Card className="max-w-2xl w-full p-8 md:p-12" style={{ boxShadow: "var(--shadow-medium)" }}>
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
             <Cloud className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">
-            Cloud FinOps Maturity Assessment
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">Cloud FinOps Maturity Assessment</h1>
           <p className="text-muted-foreground text-lg">
             Evaluate your organization's cloud financial management practices
           </p>
@@ -87,18 +85,10 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button 
-            onClick={onStart} 
-            className="flex-1 text-lg h-12"
-            style={{ background: 'var(--gradient-primary)' }}
-          >
+          <Button onClick={onStart} className="flex-1 text-lg h-12" style={{ background: "var(--gradient-primary)" }}>
             Start Assessment
           </Button>
-          <Button 
-            asChild
-            variant="outline"
-            className="flex-1 text-lg h-12 border-2"
-          >
+          <Button asChild variant="outline" className="flex-1 text-lg h-12 border-2">
             <a href="https://calendar.app.google/qdN6JHxwZ1CZ1Fwx6" target="_blank" rel="noopener noreferrer">
               Book a Call
             </a>
