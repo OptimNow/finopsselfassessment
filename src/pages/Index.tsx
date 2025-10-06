@@ -1,174 +1,222 @@
-import { useState } from "react";
-import { questions } from "@/data/questions";
-import { Answer, AssessmentResult, MaturityLevel } from "@/types/assessment";
-import WelcomeScreen from "@/components/WelcomeScreen";
-import QuestionCard from "@/components/QuestionCard";
-import ResultsScreen from "@/components/ResultsScreen";
+const generateRecommendations = (
+  dimensionScores: { dimension: string; score: number }[],
+  overallScore: number,
+  finalAnswers: Answer[],
+): string[] => {
+  const recommendations: string[] = [];
 
-type AppState = "welcome" | "assessment" | "results";
-
-const Index = () => {
-  const [appState, setAppState] = useState<AppState>("welcome");
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Answer[]>([]);
-  const [result, setResult] = useState<AssessmentResult | null>(null);
-
-  const handleStart = () => {
-    setAppState("assessment");
-    setCurrentQuestionIndex(0);
-    setAnswers([]);
+  // Helper function to get answer value for a specific question
+  const getAnswerValue = (questionId: string): number => {
+    const answer = finalAnswers.find((a) => a.questionId === questionId);
+    return answer?.value || 0;
   };
 
-  const handleAnswer = (value: MaturityLevel) => {
-    const newAnswers = [
-      ...answers,
-      { questionId: questions[currentQuestionIndex].id, value },
-    ];
-    setAnswers(newAnswers);
+  // Helper function to get dimension score
+  const getDimensionScore = (dimensionName: string): number => {
+    const dimension = dimensionScores.find((d) => d.dimension === dimensionName);
+    return dimension?.score || 0;
+  };
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      calculateResults(newAnswers);
-      setAppState("results");
+  // PRIORITY 1: Foundation - Visibility & Understanding (Score < 2.5)
+  const visibilityScore = getDimensionScore("Understanding Cloud Costs");
+  if (visibilityScore < 2.5) {
+    // Check specific visibility issues
+    if (getAnswerValue("cv1") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Visibility",
+        action:
+          "Implement real-time cost tracking dashboards with at least monthly reporting cadence. Consider tools like native cloud cost management (AWS Cost Explorer, Azure Cost Management) or third-party platforms.",
+      });
     }
-  };
 
-  const handleBack = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setAnswers(answers.slice(0, -1));
+    if (getAnswerValue("cv2") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Visibility",
+        action:
+          "Establish granular cost reporting at minimum by project/application level. This is essential before implementing any optimization strategy.",
+      });
     }
-  };
 
-  const calculateResults = (finalAnswers: Answer[]) => {
-    const dimensionMap = new Map<string, number[]>();
+    if (getAnswerValue("ca1") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Allocation",
+        action:
+          "Develop a tagging strategy and cost allocation framework. Start with mandatory tags for project, environment, and owner across all cloud resources.",
+      });
+    }
 
-    finalAnswers.forEach((answer) => {
-      const question = questions.find((q) => q.id === answer.questionId);
-      if (question) {
-        if (!dimensionMap.has(question.dimension)) {
-          dimensionMap.set(question.dimension, []);
-        }
-        dimensionMap.get(question.dimension)!.push(answer.value);
-      }
+    if (getAnswerValue("cv3") <= 2) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Visibility",
+        action:
+          "Extend your cost tracking beyond IaaS to include SaaS, PaaS, and AI service costs for complete spend visibility.",
+      });
+    }
+  }
+
+  // PRIORITY 2: Governance & Accountability (Score < 3)
+  const governanceScore = getDimensionScore("Accountability and Governance");
+  if (governanceScore < 3) {
+    if (getAnswerValue("ac2") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Team Structure",
+        action:
+          "Establish a dedicated FinOps role (even part-time initially). This person should bridge finance, engineering, and operations teams.",
+      });
+    }
+
+    if (getAnswerValue("ac1") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Accountability",
+        action:
+          "Define clear cost ownership per team or project. Start with showback reporting before moving to chargeback models.",
+      });
+    }
+
+    if (getAnswerValue("ac3") <= 2) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Operating Model",
+        action:
+          "Create an Operating Cloud Model that defines budget approval processes, cost review cadence, and escalation procedures for overruns.",
+      });
+    }
+  }
+
+  // PRIORITY 3: Basic Optimization (Score 2.5-3.5)
+  const optimizationScore = getDimensionScore("Optimization of Costs and Usage");
+  if (optimizationScore >= 2 && optimizationScore < 3.5) {
+    if (getAnswerValue("co4") <= 3) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Quick Wins",
+        action:
+          "Implement automated detection of idle resources, unattached volumes, and oversized instances. These 'quick wins' typically reduce costs by 10-30%.",
+      });
+    }
+
+    if (getAnswerValue("co3") <= 2) {
+      recommendations.push({
+        priority: "HIGH",
+        category: "Commitments",
+        action:
+          "Analyze your stable workloads and purchase Reserved Instances or Savings Plans. Start with 1-year terms for predictable workloads to achieve 30-70% savings.",
+      });
+    }
+
+    if (getAnswerValue("co2") >= 2 && getAnswerValue("co2") <= 3) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Kubernetes",
+        action:
+          "Implement Kubernetes cost visibility using tools like Kubecost or OpenCost. Enable namespace and workload-level cost allocation.",
+      });
+    }
+  }
+
+  // PRIORITY 4: Advanced Optimization (Score 3.5-4.5)
+  if (optimizationScore >= 3.5 && optimizationScore < 4.5) {
+    if (getAnswerValue("co1") <= 4) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Automation",
+        action:
+          "Move from manual to automated optimization. Implement policies for auto-remediation of waste and scheduled scaling based on usage patterns.",
+      });
+    }
+
+    if (getAnswerValue("co3") >= 3 && getAnswerValue("co3") <= 4) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Commitments",
+        action:
+          "Optimize your RI/Savings Plan strategy with regular utilization reviews. Consider automated recommendation and purchase tools for dynamic coverage.",
+      });
+    }
+
+    if (getAnswerValue("co2") === 4) {
+      recommendations.push({
+        priority: "LOW",
+        category: "Kubernetes",
+        action:
+          "Advance Kubernetes optimization with automated rightsizing, HPA/VPA, and spot instance integration for non-critical workloads.",
+      });
+    }
+  }
+
+  // PRIORITY 5: Planning & Forecasting
+  const planningScore = getDimensionScore("Planning and Budgeting");
+  if (planningScore < 3) {
+    if (getAnswerValue("fc1") <= 2) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Forecasting",
+        action:
+          "Implement quarterly cloud cost forecasting based on historical trends and planned initiatives. Update forecasts monthly as actuals come in.",
+      });
+    }
+
+    if (getAnswerValue("fc2") <= 2) {
+      recommendations.push({
+        priority: "LOW",
+        category: "Unit Economics",
+        action:
+          "Define and track unit economics metrics (e.g., cost per transaction, cost per user, cost per API call) to tie cloud spend to business value.",
+      });
+    }
+  }
+
+  // PRIORITY 6: Culture & Advanced Practices
+  const cultureScore = getDimensionScore("FinOps Culture and Practice");
+  if (cultureScore < 3) {
+    if (getAnswerValue("cu2") <= 2) {
+      recommendations.push({
+        priority: "MEDIUM",
+        category: "Training",
+        action:
+          "Invest in FinOps training and certification for your team. Start with FinOps Foundation courses for key stakeholders.",
+      });
+    }
+
+    if (getAnswerValue("cu1") <= 2) {
+      recommendations.push({
+        priority: "LOW",
+        category: "Culture",
+        action:
+          "Build FinOps awareness through regular cost reviews, shared dashboards, and celebrating cost optimization wins across teams.",
+      });
+    }
+  }
+
+  // Advanced maturity guidance (Overall score > 4)
+  if (overallScore >= 4) {
+    recommendations.push({
+      priority: "LOW",
+      category: "Excellence",
+      action:
+        "Focus on continuous improvement: ML-driven anomaly detection, predictive forecasting, and proactive optimization. Consider contributing to the FinOps community.",
     });
 
-    const dimensionScores = Array.from(dimensionMap.entries()).map(
-      ([dimension, scores]) => {
-        const avgScore = scores.reduce((a, b) => a + b, 0) / scores.length;
-        return {
-          dimension,
-          score: avgScore,
-          level: getMaturityLevel(avgScore),
-        };
-      }
-    );
-
-    const overallScore =
-      dimensionScores.reduce((sum, d) => sum + d.score, 0) /
-      dimensionScores.length;
-
-    const recommendations = generateRecommendations(dimensionScores, overallScore);
-
-    setResult({
-      overallScore,
-      dimensionScores,
-      recommendations,
-    });
-  };
-
-  const getMaturityLevel = (score: number): string => {
-    if (score >= 4.5) return "Optimized";
-    if (score >= 3.5) return "Advanced";
-    if (score >= 2.5) return "Intermediate";
-    if (score >= 1.5) return "Developing";
-    return "Beginner";
-  };
-
-  const generateRecommendations = (
-    dimensionScores: { dimension: string; score: number }[],
-    overallScore: number
-  ): string[] => {
-    const recommendations: string[] = [];
-
-    const lowestDimension = dimensionScores.reduce((min, d) =>
-      d.score < min.score ? d : min
-    );
-
-    if (overallScore < 2) {
-      recommendations.push(
-        "Establish a dedicated FinOps team or assign clear ownership for cloud cost management."
-      );
-      recommendations.push(
-        "Implement basic cost tracking and reporting tools to gain visibility into your cloud spending."
-      );
-    } else if (overallScore < 3) {
-      recommendations.push(
-        "Focus on improving your " + lowestDimension.dimension + " capabilities as a priority area."
-      );
-      recommendations.push(
-        "Develop regular cost review processes and establish budget thresholds for teams."
-      );
-    } else if (overallScore < 4) {
-      recommendations.push(
-        "Automate cost optimization processes to move from reactive to proactive management."
-      );
-      recommendations.push(
-        "Strengthen your " + lowestDimension.dimension + " practices to reach advanced maturity."
-      );
-    } else {
-      recommendations.push(
-        "Continue to optimize and refine your FinOps practices with AI/ML driven insights."
-      );
-      recommendations.push(
-        "Share your FinOps success stories and best practices across the organization."
-      );
+    if (getAnswerValue("cu3") <= 3) {
+      recommendations.push({
+        priority: "LOW",
+        category: "Sustainability",
+        action:
+          "Integrate sustainability metrics into your FinOps practice. Track carbon emissions and optimize for both cost and environmental impact.",
+      });
     }
-
-    if (dimensionScores.some((d) => d.dimension === "Understanding Cloud Costs" && d.score < 3)) {
-      recommendations.push(
-        "Implement tagging strategies and cost allocation frameworks for better visibility."
-      );
-    }
-
-    if (dimensionScores.some((d) => d.dimension === "Accountability and Governance" && d.score < 3)) {
-      recommendations.push(
-        "Create clear accountability models with team-level budgets and ownership."
-      );
-    }
-
-    return recommendations.slice(0, 5);
-  };
-
-  const handleRestart = () => {
-    setAppState("welcome");
-    setCurrentQuestionIndex(0);
-    setAnswers([]);
-    setResult(null);
-  };
-
-  if (appState === "welcome") {
-    return <WelcomeScreen onStart={handleStart} />;
   }
 
-  if (appState === "assessment") {
-    return (
-      <QuestionCard
-        question={questions[currentQuestionIndex]}
-        currentQuestion={currentQuestionIndex + 1}
-        totalQuestions={questions.length}
-        onAnswer={handleAnswer}
-        onBack={currentQuestionIndex > 0 ? handleBack : undefined}
-      />
-    );
-  }
-
-  if (appState === "results" && result) {
-    return <ResultsScreen result={result} onRestart={handleRestart} />;
-  }
-
-  return null;
+  // Sort by priority and return top recommendations
+  const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
+  return recommendations
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority])
+    .slice(0, 6)
+    .map((r) => `**${r.category}** (${r.priority}): ${r.action}`);
 };
-
-export default Index;
