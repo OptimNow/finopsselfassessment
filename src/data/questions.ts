@@ -11,8 +11,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Basic cost reports available monthly" },
       { value: 3, label: "Intermediate", description: "Regular cost tracking with some allocation" },
       { value: 4, label: "Advanced", description: "Real-time visibility with detailed allocation" },
-      { value: 5, label: "Optimized", description: "Full automation with predictive insights" }
-    ]
+      { value: 5, label: "Optimized", description: "Full automation with predictive insights" },
+    ],
   },
   {
     id: "cv2",
@@ -23,8 +23,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "High-level service costs only" },
       { value: 3, label: "Intermediate", description: "Cost by project/application" },
       { value: 4, label: "Advanced", description: "Resource-level cost tracking" },
-      { value: 5, label: "Optimized", description: "Real-time multi-dimensional analysis" }
-    ]
+      { value: 5, label: "Optimized", description: "Real-time multi-dimensional analysis" },
+    ],
   },
   {
     id: "cv3",
@@ -35,8 +35,8 @@ export const questions: Question[] = [
       { value: 2, label: "Planning", description: "No, but we are developing a tool" },
       { value: 3, label: "Partial", description: "Yes, partially" },
       { value: 4, label: "Complete", description: "Yes, with a 3rd party tool" },
-      { value: 5, label: "Advanced", description: "Comprehensive tracking with automation" }
-    ]
+      { value: 5, label: "Advanced", description: "Comprehensive tracking with automation" },
+    ],
   },
 
   // OPTIMIZATION
@@ -49,8 +49,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Ad-hoc optimization when issues arise" },
       { value: 3, label: "Intermediate", description: "Regular reviews and basic optimization" },
       { value: 4, label: "Advanced", description: "Automated optimization with governance" },
-      { value: 5, label: "Optimized", description: "Continuous optimization with ML/AI" }
-    ]
+      { value: 5, label: "Optimized", description: "Continuous optimization with ML/AI" },
+    ],
   },
   {
     id: "co2",
@@ -61,20 +61,20 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Basic rightsizing when noticed" },
       { value: 3, label: "Intermediate", description: "Reserved instances and some automation" },
       { value: 4, label: "Advanced", description: "Comprehensive optimization program" },
-      { value: 5, label: "Optimized", description: "AI-driven optimization across all resources" }
-    ]
+      { value: 5, label: "Optimized", description: "AI-driven optimization across all resources" },
+    ],
   },
   {
     id: "co3",
     dimension: "Optimization of Costs and Usage",
-    text: "Are you monitoring your Kubernetes costs and performance?",
+    text: "What is your Kubernetes cost management maturity?",
     options: [
-      { value: 1, label: "Beginner", description: "No Kubernetes monitoring" },
-      { value: 2, label: "Developing", description: "Basic cluster-level visibility only" },
-      { value: 3, label: "Intermediate", description: "Namespace-level cost tracking" },
-      { value: 4, label: "Advanced", description: "Pod-level monitoring with optimization" },
-      { value: 5, label: "Optimized", description: "Full automation with rightsizing recommendations" }
-    ]
+      { value: 1, label: "Beginner", description: "Not using Kubernetes" },
+      { value: 2, label: "Developing", description: "Using Kubernetes but no cost visibility by namespace/workload" },
+      { value: 3, label: "Intermediate", description: "Basic cost allocation by namespace/team implemented" },
+      { value: 4, label: "Advanced", description: "Detailed cost allocation with showback/chargeback in place" },
+      { value: 5, label: "Optimized", description: "Advanced optimization (rightsizing, autoscaling, spot instances)" },
+    ],
   },
 
   // ACCOUNTABILITY
@@ -87,8 +87,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Single team manages all costs" },
       { value: 3, label: "Intermediate", description: "Team-level cost awareness" },
       { value: 4, label: "Advanced", description: "Clear ownership with budgets per team" },
-      { value: 5, label: "Optimized", description: "Distributed accountability with incentives" }
-    ]
+      { value: 5, label: "Optimized", description: "Distributed accountability with incentives" },
+    ],
   },
   {
     id: "ac2",
@@ -99,8 +99,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Informal discussions only" },
       { value: 3, label: "Intermediate", description: "Budget reviews with explanations" },
       { value: 4, label: "Advanced", description: "Formal processes and corrective actions" },
-      { value: 5, label: "Optimized", description: "Proactive management with incentives" }
-    ]
+      { value: 5, label: "Optimized", description: "Proactive management with incentives" },
+    ],
   },
   {
     id: "ac3",
@@ -111,8 +111,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Basic budget tracking started" },
       { value: 3, label: "Intermediate", description: "Model defined with monthly reviews" },
       { value: 4, label: "Advanced", description: "Mature model with automated alerts" },
-      { value: 5, label: "Optimized", description: "Dynamic model with predictive capabilities" }
-    ]
+      { value: 5, label: "Optimized", description: "Dynamic model with predictive capabilities" },
+    ],
   },
 
   // PLANNING
@@ -125,8 +125,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Annual budget estimates only" },
       { value: 3, label: "Intermediate", description: "Quarterly forecasts with adjustments" },
       { value: 4, label: "Advanced", description: "Monthly forecasts with trend analysis" },
-      { value: 5, label: "Optimized", description: "Dynamic forecasting with machine learning" }
-    ]
+      { value: 5, label: "Optimized", description: "Dynamic forecasting with machine learning" },
+    ],
   },
   {
     id: "fc2",
@@ -137,8 +137,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Aware of need but not implemented" },
       { value: 3, label: "Intermediate", description: "Basic unit economics tracked" },
       { value: 4, label: "Advanced", description: "Regular monitoring with KPIs" },
-      { value: 5, label: "Optimized", description: "Fully integrated with business planning" }
-    ]
+      { value: 5, label: "Optimized", description: "Fully integrated with business planning" },
+    ],
   },
 
   // CULTURE
@@ -151,8 +151,8 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Initial awareness and interest" },
       { value: 3, label: "Intermediate", description: "Active FinOps team established" },
       { value: 4, label: "Advanced", description: "FinOps integrated into workflows" },
-      { value: 5, label: "Optimized", description: "FinOps is part of company DNA" }
-    ]
+      { value: 5, label: "Optimized", description: "FinOps is part of company DNA" },
+    ],
   },
   {
     id: "cu2",
@@ -163,8 +163,8 @@ export const questions: Question[] = [
       { value: 2, label: "Planning", description: "Planning to enroll" },
       { value: 3, label: "In Progress", description: "Currently undergoing training" },
       { value: 4, label: "Certified", description: "Yes and certified" },
-      { value: 5, label: "Advanced", description: "Multiple team members certified" }
-    ]
+      { value: 5, label: "Advanced", description: "Multiple team members certified" },
+    ],
   },
   {
     id: "cu3",
@@ -175,7 +175,7 @@ export const questions: Question[] = [
       { value: 2, label: "Developing", description: "Aware but no action taken" },
       { value: 3, label: "Intermediate", description: "Initial sustainability initiatives" },
       { value: 4, label: "Advanced", description: "Active carbon tracking and optimization" },
-      { value: 5, label: "Optimized", description: "Sustainability integrated into all decisions" }
-    ]
-  }
+      { value: 5, label: "Optimized", description: "Sustainability integrated into all decisions" },
+    ],
+  },
 ];
