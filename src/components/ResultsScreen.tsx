@@ -102,6 +102,27 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           </ul>
         </Card>
 
+        <Card className="p-8 mb-6" style={{ boxShadow: 'var(--shadow-medium)' }}>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Ready to Improve Your FinOps Maturity?</h2>
+            <p className="text-muted-foreground mb-6">
+              Let's discuss how to elevate your {result.dimensionScores
+                .filter(d => d.score <= 3)
+                .map(d => d.dimension)
+                .slice(0, 2)
+                .join(' and ')} capabilities.
+            </p>
+            <Button 
+              onClick={() => window.open('https://calendly.com/jean-latiere', '_blank')}
+              size="lg"
+              className="text-lg px-8"
+              style={{ background: 'var(--gradient-primary)' }}
+            >
+              Book a Call with Jean Latiere
+            </Button>
+          </div>
+        </Card>
+
         <div className="flex gap-4">
           <Button 
             onClick={onRestart}
@@ -112,8 +133,8 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           </Button>
           <Button 
             onClick={() => window.print()}
+            variant="outline"
             className="flex-1"
-            style={{ background: 'var(--gradient-primary)' }}
           >
             Download Results
           </Button>

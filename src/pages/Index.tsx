@@ -126,13 +126,13 @@ const Index = () => {
       );
     }
 
-    if (dimensionScores.some((d) => d.dimension === "Cost Visibility" && d.score < 3)) {
+    if (dimensionScores.some((d) => d.dimension === "Understanding Cloud Costs" && d.score < 3)) {
       recommendations.push(
         "Implement tagging strategies and cost allocation frameworks for better visibility."
       );
     }
 
-    if (dimensionScores.some((d) => d.dimension === "Accountability" && d.score < 3)) {
+    if (dimensionScores.some((d) => d.dimension === "Accountability and Governance" && d.score < 3)) {
       recommendations.push(
         "Create clear accountability models with team-level budgets and ownership."
       );

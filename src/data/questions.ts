@@ -3,7 +3,7 @@ import { Question } from "@/types/assessment";
 export const questions: Question[] = [
   {
     id: "cv1",
-    dimension: "Cost Visibility",
+    dimension: "Understanding Cloud Costs",
     text: "How well does your organization track and allocate cloud costs?",
     options: [
       { value: 1, label: "Beginner", description: "No cost tracking or visibility" },
@@ -15,7 +15,7 @@ export const questions: Question[] = [
   },
   {
     id: "co1",
-    dimension: "Cost Optimization",
+    dimension: "Optimization of Costs and Usage",
     text: "How actively does your organization optimize cloud spending?",
     options: [
       { value: 1, label: "Beginner", description: "No optimization efforts" },
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   },
   {
     id: "ac1",
-    dimension: "Accountability",
+    dimension: "Accountability and Governance",
     text: "How clear are ownership and accountability for cloud costs?",
     options: [
       { value: 1, label: "Beginner", description: "No defined ownership" },
@@ -39,7 +39,7 @@ export const questions: Question[] = [
   },
   {
     id: "fc1",
-    dimension: "Forecasting",
+    dimension: "Planning and Budgeting",
     text: "How effective is your cloud cost forecasting?",
     options: [
       { value: 1, label: "Beginner", description: "No forecasting in place" },
@@ -51,7 +51,7 @@ export const questions: Question[] = [
   },
   {
     id: "cu1",
-    dimension: "Culture & Practice",
+    dimension: "FinOps Culture and Practice",
     text: "How embedded is FinOps culture in your organization?",
     options: [
       { value: 1, label: "Beginner", description: "No awareness of FinOps" },
@@ -63,7 +63,7 @@ export const questions: Question[] = [
   },
   {
     id: "cv2",
-    dimension: "Cost Visibility",
+    dimension: "Understanding Cloud Costs",
     text: "How granular is your cloud cost reporting?",
     options: [
       { value: 1, label: "Beginner", description: "No detailed reporting" },
@@ -75,7 +75,7 @@ export const questions: Question[] = [
   },
   {
     id: "co2",
-    dimension: "Cost Optimization",
+    dimension: "Optimization of Costs and Usage",
     text: "What optimization strategies are actively used?",
     options: [
       { value: 1, label: "Beginner", description: "None implemented" },
@@ -87,7 +87,7 @@ export const questions: Question[] = [
   },
   {
     id: "ac2",
-    dimension: "Accountability",
+    dimension: "Accountability and Governance",
     text: "Are there consequences for cost overruns?",
     options: [
       { value: 1, label: "Beginner", description: "No tracking or consequences" },
