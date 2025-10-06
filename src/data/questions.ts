@@ -1,7 +1,7 @@
 import { Question } from "@/types/assessment";
 
 export const questions: Question[] = [
-  // VISIBILITY
+  // VISIBILITY & UNDERSTANDING
   {
     id: "cv1",
     dimension: "Understanding Cloud Costs",
@@ -31,11 +31,23 @@ export const questions: Question[] = [
     dimension: "Understanding Cloud Costs",
     text: "Do you track your SaaS, PaaS and AI costs?",
     options: [
-      { value: 1, label: "No", description: "We don't know how to do it" },
-      { value: 2, label: "Planning", description: "No, but we are developing a tool" },
-      { value: 3, label: "Partial", description: "Yes, partially" },
-      { value: 4, label: "Complete", description: "Yes, with a 3rd party tool" },
-      { value: 5, label: "Advanced", description: "Comprehensive tracking with automation" },
+      { value: 1, label: "Beginner", description: "We don't know how to do it" },
+      { value: 2, label: "Developing", description: "No, but we are developing a tool" },
+      { value: 3, label: "Intermediate", description: "Yes, partially tracked" },
+      { value: 4, label: "Advanced", description: "Yes, with a 3rd party tool" },
+      { value: 5, label: "Optimized", description: "Comprehensive tracking with automation" },
+    ],
+  },
+  {
+    id: "ca1",
+    dimension: "Understanding Cloud Costs",
+    text: "What is your cost allocation strategy?",
+    options: [
+      { value: 1, label: "Beginner", description: "No cost allocation strategy" },
+      { value: 2, label: "Developing", description: "Manual spreadsheet-based allocation" },
+      { value: 3, label: "Intermediate", description: "Tag-based or account-based allocation" },
+      { value: 4, label: "Advanced", description: "Hybrid allocation (tags + accounts + shared costs)" },
+      { value: 5, label: "Optimized", description: "Advanced allocation with virtual tagging via 3rd party tools" },
     ],
   },
 
@@ -55,57 +67,85 @@ export const questions: Question[] = [
   {
     id: "co2",
     dimension: "Optimization of Costs and Usage",
-    text: "What optimization strategies are actively used?",
+    text: "What is your Kubernetes cost management maturity?",
     options: [
-      { value: 1, label: "Beginner", description: "None implemented" },
-      { value: 2, label: "Developing", description: "Basic rightsizing when noticed" },
-      { value: 3, label: "Intermediate", description: "Reserved instances and some automation" },
-      { value: 4, label: "Advanced", description: "Comprehensive optimization program" },
-      { value: 5, label: "Optimized", description: "AI-driven optimization across all resources" },
+      { value: 1, label: "Beginner", description: "Not using Kubernetes" },
+      { value: 2, label: "Developing", description: "Using Kubernetes but no cost visibility" },
+      {
+        value: 3,
+        label: "Intermediate",
+        description: "Monitoring with native tools (Prometheus/Grafana) but no allocation",
+      },
+      {
+        value: 4,
+        label: "Advanced",
+        description: "Using 3rd party tools (Kubecost, OpenCost) with namespace/workload allocation",
+      },
+      {
+        value: 5,
+        label: "Optimized",
+        description: "Automated rightsizing, autoscaling and spot instance management with 3rd party tools",
+      },
     ],
   },
   {
     id: "co3",
     dimension: "Optimization of Costs and Usage",
-    text: "What is your Kubernetes cost management maturity?",
+    text: "What is your commitment-based discount strategy?",
     options: [
-      { value: 1, label: "Beginner", description: "Not using Kubernetes" },
-      { value: 2, label: "Developing", description: "Using Kubernetes but no cost visibility by namespace/workload" },
-      { value: 3, label: "Intermediate", description: "Basic cost allocation by namespace/team implemented" },
-      { value: 4, label: "Advanced", description: "Detailed cost allocation with showback/chargeback in place" },
-      { value: 5, label: "Optimized", description: "Advanced optimization (rightsizing, autoscaling, spot instances)" },
+      { value: 1, label: "Beginner", description: "Using on-demand pricing only" },
+      { value: 2, label: "Developing", description: "Aware of RIs/Savings Plans but not implemented" },
+      { value: 3, label: "Intermediate", description: "Some RIs/Savings Plans purchased reactively" },
+      { value: 4, label: "Advanced", description: "Strategic RI/SP coverage with regular utilization reviews" },
+      {
+        value: 5,
+        label: "Optimized",
+        description: "Automated recommendations and purchase with optimal coverage/utilization ratio",
+      },
+    ],
+  },
+  {
+    id: "co4",
+    dimension: "Optimization of Costs and Usage",
+    text: "How do you identify and eliminate cloud waste?",
+    options: [
+      { value: 1, label: "Beginner", description: "No waste identification process" },
+      { value: 2, label: "Developing", description: "Manual reviews when costs spike" },
+      { value: 3, label: "Intermediate", description: "Monthly reports on idle/unused resources" },
+      { value: 4, label: "Advanced", description: "Automated detection with remediation workflow" },
+      { value: 5, label: "Optimized", description: "Continuous scanning with auto-remediation policies" },
     ],
   },
 
-  // ACCOUNTABILITY
+  // ACCOUNTABILITY & GOVERNANCE
   {
     id: "ac1",
     dimension: "Accountability and Governance",
     text: "How clear are ownership and accountability for cloud costs?",
     options: [
       { value: 1, label: "Beginner", description: "No defined ownership" },
-      { value: 2, label: "Developing", description: "Single team manages all costs" },
-      { value: 3, label: "Intermediate", description: "Team-level cost awareness" },
-      { value: 4, label: "Advanced", description: "Clear ownership with budgets per team" },
-      { value: 5, label: "Optimized", description: "Distributed accountability with incentives" },
+      { value: 2, label: "Developing", description: "Central team manages and is accountable for all costs" },
+      { value: 3, label: "Intermediate", description: "Showback with team-level cost awareness" },
+      { value: 4, label: "Advanced", description: "Showback with clear ownership and budgets per team" },
+      { value: 5, label: "Optimized", description: "Chargeback with distributed accountability and incentives" },
     ],
   },
   {
     id: "ac2",
     dimension: "Accountability and Governance",
-    text: "Are there consequences for cost overruns?",
+    text: "How is your FinOps function structured?",
     options: [
-      { value: 1, label: "Beginner", description: "No tracking or consequences" },
-      { value: 2, label: "Developing", description: "Informal discussions only" },
-      { value: 3, label: "Intermediate", description: "Budget reviews with explanations" },
-      { value: 4, label: "Advanced", description: "Formal processes and corrective actions" },
-      { value: 5, label: "Optimized", description: "Proactive management with incentives" },
+      { value: 1, label: "Beginner", description: "No dedicated FinOps role or team" },
+      { value: 2, label: "Developing", description: "Part-time FinOps responsibility (finance or cloud team)" },
+      { value: 3, label: "Intermediate", description: "Dedicated FinOps practitioner" },
+      { value: 4, label: "Advanced", description: "Cross-functional FinOps team with defined roles" },
+      { value: 5, label: "Optimized", description: "Centralized FinOps CoE with embedded practitioners" },
     ],
   },
   {
     id: "ac3",
     dimension: "Accountability and Governance",
-    text: "Do you have an Operating Cloud Model in place to manage your cloud spend vs budget?",
+    text: "Do you have an Operating Cloud Model to manage cloud spend vs budget?",
     options: [
       { value: 1, label: "Beginner", description: "No operating model defined" },
       { value: 2, label: "Developing", description: "Basic budget tracking started" },
@@ -115,7 +155,7 @@ export const questions: Question[] = [
     ],
   },
 
-  // PLANNING
+  // PLANNING & FORECASTING
   {
     id: "fc1",
     dimension: "Planning and Budgeting",
@@ -131,7 +171,7 @@ export const questions: Question[] = [
   {
     id: "fc2",
     dimension: "Planning and Budgeting",
-    text: "Are you tying your cloud costs to business outcomes and monitoring Unit Economics?",
+    text: "Are you tying cloud costs to business outcomes and monitoring Unit Economics?",
     options: [
       { value: 1, label: "Beginner", description: "No correlation to business metrics" },
       { value: 2, label: "Developing", description: "Aware of need but not implemented" },
@@ -141,7 +181,7 @@ export const questions: Question[] = [
     ],
   },
 
-  // CULTURE
+  // CULTURE & PRACTICE
   {
     id: "cu1",
     dimension: "FinOps Culture and Practice",
@@ -159,11 +199,11 @@ export const questions: Question[] = [
     dimension: "FinOps Culture and Practice",
     text: "Have you or your team undergone any FinOps training or courses?",
     options: [
-      { value: 1, label: "No", description: "No training received" },
-      { value: 2, label: "Planning", description: "Planning to enroll" },
-      { value: 3, label: "In Progress", description: "Currently undergoing training" },
-      { value: 4, label: "Certified", description: "Yes and certified" },
-      { value: 5, label: "Advanced", description: "Multiple team members certified" },
+      { value: 1, label: "Beginner", description: "No training received" },
+      { value: 2, label: "Developing", description: "Planning to enroll" },
+      { value: 3, label: "Intermediate", description: "Currently undergoing training" },
+      { value: 4, label: "Advanced", description: "Yes and certified" },
+      { value: 5, label: "Optimized", description: "Multiple team members certified" },
     ],
   },
   {
