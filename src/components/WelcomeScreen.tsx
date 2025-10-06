@@ -69,11 +69,15 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">•</span>
-              <span>8 questions covering key FinOps dimensions</span>
+              <span>14 questions covering key FinOps dimensions</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">•</span>
-              <span>Takes approximately 5 minutes to complete</span>
+              <span>Takes less than 5 minutes to complete</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">•</span>
+              <span>Your answers are confidential and not recorded</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">•</span>
@@ -82,13 +86,24 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           </ul>
         </div>
 
-        <Button 
-          onClick={onStart} 
-          className="w-full text-lg h-12"
-          style={{ background: 'var(--gradient-primary)' }}
-        >
-          Start Assessment
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button 
+            onClick={onStart} 
+            className="flex-1 text-lg h-12"
+            style={{ background: 'var(--gradient-primary)' }}
+          >
+            Start Assessment
+          </Button>
+          <Button 
+            asChild
+            variant="outline"
+            className="flex-1 text-lg h-12 border-2"
+          >
+            <a href="https://calendar.app.google/qdN6JHxwZ1CZ1Fwx6" target="_blank" rel="noopener noreferrer">
+              Book a Call
+            </a>
+          </Button>
+        </div>
       </Card>
     </div>
   );
