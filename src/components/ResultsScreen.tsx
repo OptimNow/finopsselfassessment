@@ -25,38 +25,37 @@ const getMaturityLabel = (score: number) => {
 
 const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
   return (
-    <div className="min-h-screen p-4 py-12" style={{ background: 'var(--gradient-subtle)' }}>
+    <div className="min-h-screen p-4 py-12" style={{ background: "var(--gradient-subtle)" }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
             <Trophy className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Assessment Complete!</h1>
-          <p className="text-muted-foreground text-lg">
-            Here's your Cloud FinOps maturity evaluation
-          </p>
+          <p className="text-muted-foreground text-lg">Here's your Cloud FinOps maturity evaluation</p>
         </div>
 
-        <Card className="p-8 mb-6" style={{ boxShadow: 'var(--shadow-medium)' }}>
+        <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <div className="text-center mb-8">
-            <div className="text-6xl font-bold mb-2" style={{ color: `hsl(var(${result.overallScore >= 3.5 ? '--accent' : '--primary'}))` }}>
+            <div
+              className="text-6xl font-bold mb-2"
+              style={{ color: `hsl(var(${result.overallScore >= 3.5 ? "--accent" : "--primary"}))` }}
+            >
               {result.overallScore.toFixed(1)}
             </div>
-            <div className="text-xl font-semibold mb-1">
-              Overall Maturity: {getMaturityLabel(result.overallScore)}
-            </div>
+            <div className="text-xl font-semibold mb-1">Overall Maturity: {getMaturityLabel(result.overallScore)}</div>
             <div className="text-muted-foreground">Out of 5.0</div>
           </div>
 
           <div className="h-4 bg-secondary rounded-full overflow-hidden mb-8">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-destructive via-yellow-500 via-primary to-accent transition-all duration-1000"
               style={{ width: `${(result.overallScore / 5) * 100}%` }}
             />
           </div>
         </Card>
 
-        <Card className="p-8 mb-6" style={{ boxShadow: 'var(--shadow-medium)' }}>
+        <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <TrendingUp className="w-6 h-6 text-primary" />
             Dimension Scores
@@ -71,11 +70,15 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
                   </span>
                 </div>
                 <div className="h-3 bg-secondary rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className={`h-full transition-all duration-1000 ${
-                      dimension.score >= 4 ? 'bg-accent' : 
-                      dimension.score >= 3 ? 'bg-primary' : 
-                      dimension.score >= 2 ? 'bg-yellow-500' : 'bg-destructive'
+                      dimension.score >= 4
+                        ? "bg-accent"
+                        : dimension.score >= 3
+                          ? "bg-primary"
+                          : dimension.score >= 2
+                            ? "bg-yellow-500"
+                            : "bg-destructive"
                     }`}
                     style={{ width: `${(dimension.score / 5) * 100}%` }}
                   />
@@ -85,7 +88,7 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           </div>
         </Card>
 
-        <Card className="p-8 mb-6" style={{ boxShadow: 'var(--shadow-medium)' }}>
+        <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <AlertCircle className="w-6 h-6 text-primary" />
             Key Recommendations
@@ -102,21 +105,23 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           </ul>
         </Card>
 
-        <Card className="p-8 mb-6" style={{ boxShadow: 'var(--shadow-medium)' }}>
+        <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Improve Your FinOps Maturity?</h2>
             <p className="text-muted-foreground mb-6">
-              Let's discuss how to elevate your {result.dimensionScores
-                .filter(d => d.score <= 3)
-                .map(d => d.dimension)
+              Let's discuss how to elevate your{" "}
+              {result.dimensionScores
+                .filter((d) => d.score <= 3)
+                .map((d) => d.dimension)
                 .slice(0, 2)
-                .join(' and ')} capabilities.
+                .join(" and ")}{" "}
+              capabilities.
             </p>
-            <Button 
-              onClick={() => window.open('https://calendly.com/jean-latiere', '_blank')}
+            <Button
+              onClick={() => window.open("https://calendar.app.google/qdN6JHxwZ1CZ1Fwx6", "_blank")}
               size="lg"
               className="text-lg px-8"
-              style={{ background: 'var(--gradient-primary)' }}
+              style={{ background: "var(--gradient-primary)" }}
             >
               Book a Call with Jean Latiere
             </Button>
@@ -124,18 +129,10 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
         </Card>
 
         <div className="flex gap-4">
-          <Button 
-            onClick={onRestart}
-            variant="outline"
-            className="flex-1"
-          >
+          <Button onClick={onRestart} variant="outline" className="flex-1">
             Retake Assessment
           </Button>
-          <Button 
-            onClick={() => window.print()}
-            variant="outline"
-            className="flex-1"
-          >
+          <Button onClick={() => window.print()} variant="outline" className="flex-1">
             Download Results
           </Button>
         </div>
