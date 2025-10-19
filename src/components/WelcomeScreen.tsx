@@ -57,7 +57,7 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             </div>
             <div>
               <h3 className="font-semibold mb-1">Culture & More</h3>
-              <p className="text-sm text-muted-foreground">Evaluate FinOps maturity</p>
+              <p className="text-sm text-muted-foreground">Evaluate the FinOps maturity of your team</p>
             </div>
           </div>
         </div>
