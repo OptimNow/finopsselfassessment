@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Cloud, TrendingUp, Users, DollarSign } from "lucide-react";
+import { logoPastilleDataUrl } from "../assets/brandAssets";
 
 interface WelcomeScreenProps {
   onStart: () => void;

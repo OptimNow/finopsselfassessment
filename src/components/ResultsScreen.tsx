@@ -2,6 +2,7 @@ import { AssessmentResult } from "@/types/assessment";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, TrendingUp, AlertCircle } from "lucide-react";
+import { logoPastilleDataUrl } from "../assets/brandAssets";
 
 interface ResultsScreenProps {
   result: AssessmentResult;
