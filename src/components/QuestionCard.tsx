@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface QuestionCardProps {
   question: Question;
@@ -11,22 +11,30 @@ interface QuestionCardProps {
   totalQuestions: number;
   onAnswer: (value: MaturityLevel) => void;
   onBack?: () => void;
+  selectedValue?: MaturityLevel | null;
 }
 
-const QuestionCard = ({ 
-  question, 
-  currentQuestion, 
-  totalQuestions, 
+const QuestionCard = ({
+  question,
+  currentQuestion,
+  totalQuestions,
   onAnswer,
-  onBack 
+  onBack,
+  selectedValue
 }: QuestionCardProps) => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
-  const handleSubmit = () => {
+  useEffect(() => {
     if (selectedValue) {
-      onAnswer(parseInt(selectedValue) as MaturityLevel);
-      setSelectedValue("");
+      setSelectedOption(selectedValue.toString());
+    } else {
+      setSelectedOption("");
     }
+  }, [selectedValue]);
+
+  const handleSelection = (value: string) => {
+    setSelectedOption(value);
+    onAnswer(parseInt(value) as MaturityLevel);
   };
 
   return (
@@ -50,20 +58,26 @@ const QuestionCard = ({
         </div>
 
         <Card className="p-8" style={{ boxShadow: 'var(--shadow-medium)' }}>
-          <h2 className="text-2xl font-bold mb-8">{question.text}</h2>
+          <div className="flex items-start justify-between gap-4 mb-8">
+            <h2 className="text-2xl font-bold leading-tight">{question.text}</h2>
+            <div className="text-xs text-muted-foreground text-right">
+              <div>Auto-advances on selection</div>
+              <div className="font-semibold text-primary">Back enabled</div>
+            </div>
+          </div>
 
-          <RadioGroup value={selectedValue} onValueChange={setSelectedValue}>
+          <RadioGroup value={selectedOption} onValueChange={handleSelection}>
             <div className="space-y-3">
               {question.options.map((option) => (
                 <div key={option.value}>
                   <Label
-                    htmlFor={`option-${option.value}`}
-                    className="flex items-start gap-4 p-4 rounded-lg border-2 border-border hover:border-primary cursor-pointer transition-all"
-                    style={{
-                      borderColor: selectedValue === option.value.toString() ? 'hsl(var(--primary))' : undefined,
-                      backgroundColor: selectedValue === option.value.toString() ? 'hsl(var(--primary) / 0.05)' : undefined,
-                    }}
-                  >
+                      htmlFor={`option-${option.value}`}
+                      className="flex items-start gap-4 p-4 rounded-lg border-2 border-border hover:border-primary cursor-pointer transition-all"
+                      style={{
+                      borderColor: selectedOption === option.value.toString() ? 'hsl(var(--primary))' : undefined,
+                      backgroundColor: selectedOption === option.value.toString() ? 'hsl(var(--primary) / 0.05)' : undefined,
+                      }}
+                    >
                     <RadioGroupItem
                       value={option.value.toString()}
                       id={`option-${option.value}`}
@@ -81,25 +95,17 @@ const QuestionCard = ({
             </div>
           </RadioGroup>
 
-          <div className="flex gap-3 mt-8">
-            {onBack && (
-              <Button 
-                onClick={onBack} 
+          {onBack && (
+            <div className="flex justify-end mt-8">
+              <Button
+                onClick={onBack}
                 variant="outline"
-                className="flex-1"
+                className="flex-none"
               >
                 Back
               </Button>
-            )}
-            <Button 
-              onClick={handleSubmit} 
-              disabled={!selectedValue}
-              className="flex-1"
-              style={{ background: selectedValue ? 'var(--gradient-primary)' : undefined }}
-            >
-              {currentQuestion === totalQuestions ? "Complete Assessment" : "Next Question"}
-            </Button>
-          </div>
+            </div>
+          )}
         </Card>
       </div>
     </div>

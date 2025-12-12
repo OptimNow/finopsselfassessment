@@ -161,7 +161,9 @@ const Index = () => {
     setAnswers(newAnswers);
 
     if (currentStep < questions.length - 1) {
-      setCurrentStep(currentStep + 1);
+      setTimeout(() => {
+        setCurrentStep((prev) => Math.min(prev + 1, questions.length - 1));
+      }, 300);
     } else {
       const finalResults = calculateResults(newAnswers);
       setResults(finalResults);
@@ -189,6 +191,8 @@ const Index = () => {
     return <ResultsScreen result={results} onRestart={handleRestart} />;
   }
 
+  const existingAnswer = answers.find((a) => a.questionId === questions[currentStep].id);
+
   return (
     <QuestionCard
       question={questions[currentStep]}
@@ -196,6 +200,7 @@ const Index = () => {
       totalQuestions={questions.length}
       onAnswer={handleAnswer}
       onBack={handleBack}
+      selectedValue={existingAnswer?.value ?? null}
     />
   );
 };
