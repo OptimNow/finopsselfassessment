@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Trophy, TrendingUp, AlertCircle } from "lucide-react";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { useMemo } from "react";
+import { ResultsRadar } from "@/components/results/ResultsRadar";
+
 
 interface ResultsScreenProps {
   result: AssessmentResult;
@@ -54,6 +56,11 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
   const overallScore0to100 = Math.round((result.overallScore / 5) * 100);
 
   const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
+const radarData = result.dimensionScores.map((d) => ({
+  category: d.dimension,
+  score: Math.round((d.score / 5) * 100),
+}));
+console.log({ loading, error, recs });
 
   return (
     <div className="min-h-screen p-4 py-12" style={{ background: "var(--gradient-subtle)" }}>
@@ -85,6 +92,10 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
             />
           </div>
         </Card>
+<Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
+  <h2 className="text-2xl font-bold mb-6">Maturity by domain</h2>
+  <ResultsRadar data={radarData} />
+</Card>
 
         <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -127,6 +138,11 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
 
           {loading && <p className="text-sm text-muted-foreground">Generating recommendations…</p>}
           {error && <p className="text-sm text-destructive">{error}</p>}
+{error && (
+  <p className="text-xs text-muted-foreground mt-2">
+    Check Vercel Functions logs for /api/recommendations
+  </p>
+)}
 
           {recs && recs.length > 0 ? (
             <div className="space-y-4">
