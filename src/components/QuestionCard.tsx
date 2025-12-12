@@ -60,10 +60,6 @@ const QuestionCard = ({
         <Card className="p-8" style={{ boxShadow: 'var(--shadow-medium)' }}>
           <div className="flex items-start justify-between gap-4 mb-8">
             <h2 className="text-2xl font-bold leading-tight">{question.text}</h2>
-            <div className="text-xs text-muted-foreground text-right">
-              <div>Auto-advances on selection</div>
-              <div className="font-semibold text-primary">Back enabled</div>
-            </div>
           </div>
 
           <RadioGroup value={selectedOption} onValueChange={handleSelection}>
@@ -110,7 +106,7 @@ const QuestionCard = ({
 
         <div className="flex justify-center mt-8">
           <img
-            src="/logo-wordmark.svg"
+            src="/Logo_Pastille verte.png"
             alt="Cloud brand"
             className="h-10 w-auto opacity-70"
             loading="lazy"
