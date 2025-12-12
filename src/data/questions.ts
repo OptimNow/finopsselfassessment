@@ -4,8 +4,10 @@ export const questions: Question[] = [
   // VISIBILITY & UNDERSTANDING
   {
     id: "cv1",
+    category: "inform",
     dimension: "Understanding Cloud Costs",
     text: "How well does your organization track and allocate cloud costs?",
+    gapLabel: "No clear cost allocation model",
     options: [
       { value: 1, label: "Beginner", description: "No cost tracking or visibility" },
       { value: 2, label: "Developing", description: "Basic cost reports available monthly" },
@@ -16,8 +18,10 @@ export const questions: Question[] = [
   },
   {
     id: "cv2",
+    category: "inform",
     dimension: "Understanding Cloud Costs",
     text: "How granular is your cloud cost reporting?",
+    gapLabel: "Data in the reports is not granular enough",
     options: [
       { value: 1, label: "Beginner", description: "No detailed reporting" },
       { value: 2, label: "Developing", description: "High-level service costs only" },
@@ -28,8 +32,10 @@ export const questions: Question[] = [
   },
   {
     id: "cv3",
+    category: "inform",
     dimension: "Understanding Cloud Costs",
     text: "Do you track your SaaS, PaaS and AI costs?",
+    gapLabel: "No view on SaaS, PaaS or IA costs",
     options: [
       { value: 1, label: "Beginner", description: "We don't know how to do it" },
       { value: 2, label: "Developing", description: "No, but we are developing a tool" },
@@ -40,8 +46,10 @@ export const questions: Question[] = [
   },
   {
     id: "ca1",
+    category: "inform",
     dimension: "Understanding Cloud Costs",
     text: "What is your cost allocation strategy?",
+    gapLabel: "Cost allocation strategy is not defined",
     options: [
       { value: 1, label: "Beginner", description: "No cost allocation strategy" },
       { value: 2, label: "Developing", description: "Manual spreadsheet-based allocation" },
@@ -54,8 +62,10 @@ export const questions: Question[] = [
   // OPTIMIZATION
   {
     id: "co1",
+    category: "optimize",
     dimension: "Optimization of Costs and Usage",
     text: "How actively does your organization optimize cloud spending?",
+    gapLabel: "No regular cost optimization process in place",
     options: [
       { value: 1, label: "Beginner", description: "No optimization efforts" },
       { value: 2, label: "Developing", description: "Ad-hoc optimization when issues arise" },
@@ -66,8 +76,10 @@ export const questions: Question[] = [
   },
   {
     id: "co2",
+    category: "optimize",
     dimension: "Optimization of Costs and Usage",
     text: "What is your Kubernetes cost management maturity?",
+    gapLabel: "Kubernetes costs are not monitored or optimized",
     options: [
       { value: 1, label: "Beginner", description: "Not using Kubernetes" },
       { value: 2, label: "Developing", description: "Using Kubernetes but no cost visibility" },
@@ -90,8 +102,10 @@ export const questions: Question[] = [
   },
   {
     id: "co3",
+    category: "optimize",
     dimension: "Optimization of Costs and Usage",
     text: "What is your commitment-based discount strategy?",
+    gapLabel: "No commitment-based discount strategy",
     options: [
       { value: 1, label: "Beginner", description: "Using on-demand pricing only" },
       { value: 2, label: "Developing", description: "Aware of RIs/Savings Plans but not implemented" },
@@ -106,8 +120,10 @@ export const questions: Question[] = [
   },
   {
     id: "co4",
+    category: "optimize",
     dimension: "Optimization of Costs and Usage",
     text: "How do you identify and eliminate cloud waste?",
+    gapLabel: "No cloud waste identification or elimination process",
     options: [
       { value: 1, label: "Beginner", description: "No waste identification process" },
       { value: 2, label: "Developing", description: "Manual reviews when costs spike" },
@@ -120,8 +136,10 @@ export const questions: Question[] = [
   // ACCOUNTABILITY & GOVERNANCE
   {
     id: "ac1",
+    category: "govern",
     dimension: "Accountability and Governance",
     text: "How clear are ownership and accountability for cloud costs?",
+    gapLabel: "Unclear ownership and accountability for cloud costs",
     options: [
       { value: 1, label: "Beginner", description: "No defined ownership" },
       { value: 2, label: "Developing", description: "Central team manages and is accountable for all costs" },
@@ -132,8 +150,10 @@ export const questions: Question[] = [
   },
   {
     id: "ac2",
+    category: "govern",
     dimension: "Accountability and Governance",
     text: "How is your FinOps function structured?",
+    gapLabel: "No dedicated FinOps role or team",
     options: [
       { value: 1, label: "Beginner", description: "No dedicated FinOps role or team" },
       { value: 2, label: "Developing", description: "Part-time FinOps responsibility (finance or cloud team)" },
@@ -144,8 +164,10 @@ export const questions: Question[] = [
   },
   {
     id: "ac3",
+    category: "govern",
     dimension: "Accountability and Governance",
     text: "Do you have an Operating Cloud Model to manage cloud spend vs budget?",
+    gapLabel: "No Operating Cloud Model defined",
     options: [
       { value: 1, label: "Beginner", description: "No operating model defined" },
       { value: 2, label: "Developing", description: "Basic budget tracking started" },
@@ -158,8 +180,10 @@ export const questions: Question[] = [
   // PLANNING & FORECASTING
   {
     id: "fc1",
+    category: "plan",
     dimension: "Planning and Budgeting",
     text: "How effective is your cloud cost forecasting?",
+    gapLabel: "No cloud cost forecasting process in place",
     options: [
       { value: 1, label: "Beginner", description: "No forecasting in place" },
       { value: 2, label: "Developing", description: "Annual budget estimates only" },
@@ -170,8 +194,10 @@ export const questions: Question[] = [
   },
   {
     id: "fc2",
+    category: "plan",
     dimension: "Planning and Budgeting",
     text: "Are you tying cloud costs to business outcomes and monitoring Unit Economics?",
+    gapLabel: "Cloud costs are not linked to business outcomes",
     options: [
       { value: 1, label: "Beginner", description: "No correlation to business metrics" },
       { value: 2, label: "Developing", description: "Aware of need but not implemented" },
@@ -184,8 +210,10 @@ export const questions: Question[] = [
   // CULTURE & PRACTICE
   {
     id: "cu1",
+    category: "finops_practice",
     dimension: "FinOps Culture and Practice",
     text: "How embedded is FinOps culture in your organization?",
+    gapLabel: "FinOps culture is not promoted",
     options: [
       { value: 1, label: "Beginner", description: "No awareness of FinOps" },
       { value: 2, label: "Developing", description: "Initial awareness and interest" },
@@ -196,8 +224,10 @@ export const questions: Question[] = [
   },
   {
     id: "cu2",
+    category: "finops_practice",
     dimension: "FinOps Culture and Practice",
     text: "Have you or your team undergone any FinOps training or courses?",
+    gapLabel: "No FinOps training or courses undertaken",
     options: [
       { value: 1, label: "Beginner", description: "No training received" },
       { value: 2, label: "Developing", description: "Planning to enroll" },
@@ -208,8 +238,10 @@ export const questions: Question[] = [
   },
   {
     id: "cu3",
+    category: "finops_practice",
     dimension: "FinOps Culture and Practice",
     text: "Is GreenIT and Cloud sustainability a topic in your organization?",
+    gapLabel: "No consideration of cloud sustainability practices",
     options: [
       { value: 1, label: "Beginner", description: "Not on our radar" },
       { value: 2, label: "Developing", description: "Aware but no action taken" },

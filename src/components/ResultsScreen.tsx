@@ -2,7 +2,8 @@ import { AssessmentResult } from "@/types/assessment";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, TrendingUp, AlertCircle } from "lucide-react";
-import { logoPastilleDataUrl } from "../assets/brandAssets";
+import { useRecommendations } from "@/hooks/useRecommendations";
+import { useMemo } from "react";
 
 interface ResultsScreenProps {
   result: AssessmentResult;
@@ -25,6 +26,35 @@ const getMaturityLabel = (score: number) => {
 };
 
 const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
+  // Debug (dans le composant, pas au niveau global)
+  // console.log("RESULT", result);
+
+  const storedAnswers = useMemo(() => {
+    try {
+      const raw = localStorage.getItem("finops_answers");
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const perCategory = {
+    overall: {
+      score_0_to_5: result.overallScore,
+      score_0_to_100: Math.round((result.overallScore / 5) * 100),
+    },
+    dimensions: result.dimensionScores.map((d) => ({
+      dimension: d.dimension,
+      score_0_to_5: d.score,
+      score_0_to_100: Math.round((d.score / 5) * 100),
+    })),
+    answers: storedAnswers,
+  };
+
+  const overallScore0to100 = Math.round((result.overallScore / 5) * 100);
+
+  const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
+
   return (
     <div className="min-h-screen p-4 py-12" style={{ background: "var(--gradient-subtle)" }}>
       <div className="max-w-4xl mx-auto">
@@ -94,23 +124,32 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
             <AlertCircle className="w-6 h-6 text-primary" />
             Key Recommendations
           </h2>
-          <ul className="space-y-4">
-            {result.recommendations.map((recommendation, index) => {
-              const parts = recommendation.split(/(\*\*.*?\*\*)/g);
-              return (
+
+          {loading && <p className="text-sm text-muted-foreground">Generating recommendations…</p>}
+          {error && <p className="text-sm text-destructive">{error}</p>}
+
+          {recs && recs.length > 0 ? (
+            <div className="space-y-4">
+              {recs.slice(0, 3).map((r, index) => (
+                <div key={index} className="p-4 rounded-lg bg-secondary/50">
+                  <div className="font-semibold">{r.title}</div>
+                  <div className="text-sm mt-1">{r.why_it_matters}</div>
+                  <div className="text-sm mt-2">
+                    <span className="font-semibold">First step: </span>
+                    {r.first_step}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ul className="space-y-4">
+              {result.recommendations.map((recommendation, index) => (
                 <li key={index} className="flex items-start gap-3 p-4 rounded-lg bg-secondary/50">
-                  <span className="text-foreground">
-                    {parts.map((part, i) => {
-                      if (part.startsWith('**') && part.endsWith('**')) {
-                        return <strong key={i}>{part.slice(2, -2)}</strong>;
-                      }
-                      return part;
-                    })}
-                  </span>
+                  <span className="text-foreground">{recommendation}</span>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          )}
         </Card>
 
         <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>

@@ -13,12 +13,12 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
       <Card className="max-w-2xl w-full p-8 md:p-12" style={{ boxShadow: "var(--shadow-medium)" }}>
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
-            <img
-              src="/Logo_Pastille verte.png"
-              alt="Cloud brand"
-              className="h-14 w-auto"
-              loading="lazy"
-            />
+//           <img
+//             src="/Logo_Pastille verte.png"
+//              alt="Cloud brand"
+//              className="h-14 w-auto"
+//              loading="lazy"
+//            />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Cloud FinOps Maturity Assessment</h1>
           <p className="text-muted-foreground text-lg">
