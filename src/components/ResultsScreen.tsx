@@ -2,6 +2,7 @@ import { AssessmentResult } from "@/types/assessment";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, TrendingUp, AlertCircle } from "lucide-react";
+import { logoPastilleDataUrl } from "../assets/brandAssets";
 
 interface ResultsScreenProps {
   result: AssessmentResult;
@@ -142,6 +143,15 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           <Button onClick={() => window.print()} variant="outline" className="flex-1">
             Download Results
           </Button>
+        </div>
+
+        <div className="flex justify-center mt-8">
+          <img
+            src={logoPastilleDataUrl}
+            alt="Cloud brand"
+            className="h-10 w-auto opacity-70"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
