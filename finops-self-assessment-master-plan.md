@@ -33,12 +33,12 @@ Done when: app visually matches OptimNow identity and reads as a professional as
 ---
 
 ### A2. Questionnaire Flow – “Pick and Go”
-- [ ] Remove explicit Submit button per question
-- [ ] On option selection:
-  - [ ] Save answer in state
-  - [ ] Auto-advance to next question (short delay)
-- [ ] Preserve Back navigation
-- [ ] Highlight previously selected answers on revisit
+- [x] Remove explicit Submit button per question
+- [x] On option selection:
+  - [x] Save answer in state
+  - [x] Auto-advance to next question (short delay)
+- [x] Preserve Back navigation
+- [x] Highlight previously selected answers on revisit
 - [ ] Keyboard accessibility (arrow + enter)
 - [ ] Handle last-question transition to Results cleanly
 
