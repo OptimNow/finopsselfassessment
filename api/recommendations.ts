@@ -2,25 +2,19 @@ import OpenAI from "openai";
 
 export const config = { runtime: "nodejs" };
 
-function safeJsonParse(text: string) {
+function safeJsonParse(s: string) {
   try {
-    return JSON.parse(text);
+    return JSON.parse(s);
   } catch {
     return null;
   }
 }
 
-function extractJsonCandidate(text: string) {
-  // Handles plain JSON or ```json ... ``` blocks
-  return text
-    .replace(/```json/gi, "```")
-    .replace(/```/g, "")
-    .trim();
+function extractJsonCandidate(s: string) {
+  return s.replace(/```json/gi, "```").replace(/```/g, "").trim();
 }
 
 export default async function handler(req: any, res: any) {
-  res.setHeader("Content-Type", "application/json");
-
   try {
     if (req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
@@ -61,24 +55,21 @@ Context: ${JSON.stringify(perCategory)}
     const completion = await client.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0.2,
-      messages: [
-        { role: "user", content: prompt }
-      ],
+      messages: [{ role: "user", content: prompt }],
     });
 
-    const raw = completion.choices?.[0]?.message?.content ?? "";
-    const candidate = extractJsonCandidate(raw);
+    const rawText = completion.choices?.[0]?.message?.content ?? "";
+    const candidate = extractJsonCandidate(rawText);
     const parsed = safeJsonParse(candidate);
 
     if (parsed && Array.isArray(parsed.recommendations)) {
       return res.status(200).json(parsed);
     }
 
-    // If still not JSON, return JSON with raw attached for debugging
     return res.status(200).json({
       recommendations: [],
       error: "Model returned non-JSON content",
-      raw,
+      raw: rawText,
     });
   } catch (e: any) {
     return res.status(500).json({
