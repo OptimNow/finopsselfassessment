@@ -25,15 +25,24 @@ export function useRecommendations(overallScore: number, perCategory: any) {
           body: JSON.stringify({ overallScore, perCategory }),
         });
 
-        const json = await r.json();
+const text = await r.text();
 
-        if (!r.ok) {
-          throw new Error(json?.error ?? "API error");
-        }
+let json: any = null;
+try {
+  json = JSON.parse(text);
+} catch {
+  // If server returns HTML/text error, keep it as-is for debugging
+  throw new Error(text.slice(0, 200));
+}
 
-        if (!cancelled) {
-          setRecs(json.recommendations ?? []);
-        }
+if (!r.ok) {
+  throw new Error(json?.error ?? "API error");
+}
+
+if (!cancelled) {
+  setRecs(json.recommendations ?? []);
+}
+
       } catch (e: any) {
         if (!cancelled) setError(e?.message ?? "Unknown error");
       } finally {
