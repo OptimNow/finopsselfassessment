@@ -18,6 +18,8 @@ export function useRecommendations(overallScore: number, perCategory: any) {
       try {
         setLoading(true);
         setError(null);
+        setRecs(null);
+
 
         const r = await fetch("/api/recommendations", {
           method: "POST",
@@ -41,6 +43,10 @@ if (!r.ok) {
 
 if (!cancelled) {
   setRecs(json.recommendations ?? []);
+  if (!cancelled && Array.isArray(json.recommendations) && json.recommendations.length === 0 && json.error) {
+  setError(json.error);
+}
+
 }
 
       } catch (e: any) {
