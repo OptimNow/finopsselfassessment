@@ -1,0 +1,19 @@
+# Merge conflict quick guide
+
+This project follows a light, helper-text-free questionnaire design. When resolving merge conflicts in the GitHub UI:
+
+1. **Pick the incoming change** when you see the conflict in `src/components/QuestionCard.tsx` that contains the helper text:
+   ```
+   <div className="text-xs text-muted-foreground text-right">
+     Auto-advances on selection
+   </div>
+   <div className="font-semibold text-primary">Back enabled</div>
+   ```
+   Keep the version **without** this helper copy. Selecting **"Accept incoming change"** matches the approved design.
+
+2. After accepting the incoming change, ensure the footer logo and light background remain intact. No additional edits are required for this conflict.
+
+3. If other conflicts appear, prefer the variant that keeps the light background, the footer logo, and removes the questionnaire helper copy.
+
+For local resolution instead of the web UI:
+- Check conflict markers with `git status` and edit the files to remove the helper text, then stage with `git add` and commit.

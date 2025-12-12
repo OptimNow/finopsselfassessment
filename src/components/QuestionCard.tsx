@@ -107,6 +107,15 @@ const QuestionCard = ({
             </div>
           )}
         </Card>
+
+        <div className="flex justify-center mt-8">
+          <img
+            src="/logo-wordmark.svg"
+            alt="Cloud brand"
+            className="h-10 w-auto opacity-70"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   );

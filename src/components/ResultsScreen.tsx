@@ -143,6 +143,15 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
             Download Results
           </Button>
         </div>
+
+        <div className="flex justify-center mt-8">
+          <img
+            src="/logo-wordmark.svg"
+            alt="Cloud brand"
+            className="h-10 w-auto opacity-70"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   );
