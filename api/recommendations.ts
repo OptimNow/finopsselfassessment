@@ -15,6 +15,7 @@ function extractJsonCandidate(s: string) {
 }
 
 export default async function handler(req: any, res: any) {
+  console.log("recommendations handler hit", new Date().toISOString(), req.method);
   try {
     if (req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
