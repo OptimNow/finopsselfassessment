@@ -159,6 +159,7 @@ const Index = () => {
     }
 
     setAnswers(newAnswers);
+    localStorage.setItem("finops_answers", JSON.stringify(newAnswers));
 
     if (currentStep < questions.length - 1) {
       setTimeout(() => {
@@ -181,6 +182,7 @@ const Index = () => {
     setCurrentStep(0);
     setAnswers([]);
     setResults(null);
+    localStorage.removeItem("finops_answers");
   };
 
   if (!hasStarted) {
