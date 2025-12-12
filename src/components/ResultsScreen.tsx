@@ -147,7 +147,7 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
           </h2>
 
           {loading ? (
-            <p className="text-sm text-muted-foreground">Generating recommendations…</p>
+            <p className="text-sm text-muted-foreground">Loading customized recommendations…</p>
           ) : error ? (
             <p className="text-sm text-destructive">{error}</p>
           ) : recs && recs.length > 0 ? (
