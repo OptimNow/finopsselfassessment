@@ -49,6 +49,7 @@ Rules:
 - first_step 1 concrete sentence
 - No markdown, no bullets, no extra keys.
 
+Per-category includes primaryGap per domain. Use it.
 Overall score: ${overallScore}
 Context: ${JSON.stringify(perCategory)}
 `.trim();

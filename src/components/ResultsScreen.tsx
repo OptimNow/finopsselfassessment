@@ -5,6 +5,7 @@ import { Trophy, TrendingUp, AlertCircle } from "lucide-react";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { useMemo } from "react";
 import { ResultsRadar } from "@/components/results/ResultsRadar";
+import { questions } from "@/data/questions";
 
 interface ResultsScreenProps {
   result: AssessmentResult;
@@ -26,6 +27,60 @@ const getMaturityLabel = (score: number) => {
   return "Beginner";
 };
 
+type StoredAnswer = { questionId: string; value: number };
+
+function buildAnswerMap(storedAnswers: StoredAnswer[] | null) {
+  const m = new Map<string, number>();
+  (storedAnswers ?? []).forEach((a) => m.set(a.questionId, a.value));
+  return m;
+}
+
+function computePrimaryGapByDimension(storedAnswers: StoredAnswer[] | null) {
+  const answerMap = buildAnswerMap(storedAnswers);
+
+  // Group answered questions by dimension with their score
+  const byDim = new Map<
+    string,
+    { id: string; value: number; gapLabel?: string }[]
+  >();
+
+  for (const q of questions as any[]) {
+    const v = answerMap.get(q.id);
+    if (typeof v !== "number") continue;
+
+    const dim = q.dimension ?? "Other";
+    const arr = byDim.get(dim) ?? [];
+    arr.push({ id: q.id, value: v, gapLabel: q.gapLabel });
+    byDim.set(dim, arr);
+  }
+
+  // For each dimension, pick the lowest scoring answered question that has a gapLabel
+  const result: Record<string, { primaryGap: string; worstScore: number }> = {};
+
+  for (const [dim, items] of byDim.entries()) {
+    const sorted = [...items].sort((a, b) => a.value - b.value);
+
+    const worstWithLabel = sorted.find((x) => x.gapLabel && x.gapLabel.trim().length > 0);
+
+    if (worstWithLabel) {
+      result[dim] = {
+        primaryGap: worstWithLabel.gapLabel!.trim(),
+        worstScore: worstWithLabel.value,
+      };
+    } else {
+      // fallback if missing gapLabel
+      const worst = sorted[0];
+      result[dim] = {
+        primaryGap: worst ? `Improve ${dim} practices` : `Improve ${dim} practices`,
+        worstScore: worst ? worst.value : 5,
+      };
+    }
+  }
+
+  return result;
+}
+
+
 const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
   const storedAnswers = useMemo(() => {
     try {
@@ -35,6 +90,9 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
       return null;
     }
   }, []);
+const gapByDimension = useMemo(() => {
+  return computePrimaryGapByDimension(storedAnswers);
+}, [storedAnswers]);
 
   const overallScore0to100 = useMemo(
     () => Math.round((result.overallScore / 5) * 100),
@@ -51,7 +109,10 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
         dimension: d.dimension,
         score_0_to_5: d.score,
         score_0_to_100: Math.round((d.score / 5) * 100),
-      })),
+        primaryGap: gapByDimension[d.dimension]?.primaryGap ?? `Improve ${d.dimension} practices`,
+        worstAnswerScore_1_to_5: gapByDimension[d.dimension]?.worstScore ?? null,
+    })),
+
       answers: storedAnswers,
     }),
     [result.overallScore, result.dimensionScores, storedAnswers]
