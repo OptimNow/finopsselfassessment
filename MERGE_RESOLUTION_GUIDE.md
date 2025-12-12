@@ -17,14 +17,3 @@ This project follows a light, helper-text-free questionnaire design. When resolv
 
 For local resolution instead of the web UI:
 - Check conflict markers with `git status` and edit the files to remove the helper text, then stage with `git add` and commit.
-
-## If the PR UI shows “Les fichiers binaires ne sont pas pris en charge”
-- This warning appears because the logo and favicon are image binaries; it does **not** block the merge.
-- To proceed in GitHub:
-  1. Ignore the binary diff preview and click **Create pull request** anyway—the files stay attached even if the UI cannot show their diff.
-  2. If the button is disabled, switch to the **Files changed** tab, collapse the binary file rows, and try again.
-- To bypass the web UI entirely, open a terminal and push your branch normally, then run:
-  ```bash
-  git push origin <branch-name>
-  # Then open GitHub and click "Compare & pull request" on the banner.
-  ```

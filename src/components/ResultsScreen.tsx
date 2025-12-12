@@ -147,7 +147,7 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
 
         <div className="flex justify-center mt-8">
           <img
-            src={logoPastilleDataUrl}
+            src="/logo-wordmark.svg"
             alt="Cloud brand"
             className="h-10 w-auto opacity-70"
             loading="lazy"

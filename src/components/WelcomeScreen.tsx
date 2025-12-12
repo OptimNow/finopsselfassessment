@@ -14,7 +14,7 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
             <img
-              src={logoPastilleDataUrl}
+              src="/logo-wordmark.svg"
               alt="Cloud brand"
               className="h-14 w-auto"
               loading="lazy"
