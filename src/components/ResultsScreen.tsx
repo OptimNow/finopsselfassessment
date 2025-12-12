@@ -6,7 +6,6 @@ import { useRecommendations } from "@/hooks/useRecommendations";
 import { useMemo } from "react";
 import { ResultsRadar } from "@/components/results/ResultsRadar";
 
-
 interface ResultsScreenProps {
   result: AssessmentResult;
   onRestart: () => void;
@@ -28,9 +27,6 @@ const getMaturityLabel = (score: number) => {
 };
 
 const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
-  // Debug (dans le composant, pas au niveau global)
-  // console.log("RESULT", result);
-
   const storedAnswers = useMemo(() => {
     try {
       const raw = localStorage.getItem("finops_answers");
@@ -40,34 +36,40 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
     }
   }, []);
 
-const overallScore0to100 = useMemo(
-  () => Math.round((result.overallScore / 5) * 100),
-  [result.overallScore]
-);
+  const overallScore0to100 = useMemo(
+    () => Math.round((result.overallScore / 5) * 100),
+    [result.overallScore]
+  );
 
-const perCategory = useMemo(
-  () => ({
-    overall: {
-      score_0_to_5: result.overallScore,
-      score_0_to_100: Math.round((result.overallScore / 5) * 100),
-    },
-    dimensions: result.dimensionScores.map((d) => ({
-      dimension: d.dimension,
-      score_0_to_5: d.score,
-      score_0_to_100: Math.round((d.score / 5) * 100),
-    })),
-    answers: storedAnswers,
-  }),
-  [result.overallScore, result.dimensionScores, storedAnswers]
-);
+  const perCategory = useMemo(
+    () => ({
+      overall: {
+        score_0_to_5: result.overallScore,
+        score_0_to_100: Math.round((result.overallScore / 5) * 100),
+      },
+      dimensions: result.dimensionScores.map((d) => ({
+        dimension: d.dimension,
+        score_0_to_5: d.score,
+        score_0_to_100: Math.round((d.score / 5) * 100),
+      })),
+      answers: storedAnswers,
+    }),
+    [result.overallScore, result.dimensionScores, storedAnswers]
+  );
 
-const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
+  const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
 
-const radarData = result.dimensionScores.map((d) => ({
-  category: d.dimension,
-  score: Math.round((d.score / 5) * 100),
-}));
-console.log({ loading, error, recs });
+  const radarData = useMemo(
+    () =>
+      result.dimensionScores.map((d) => ({
+        category: d.dimension,
+        score: Math.round((d.score / 5) * 100),
+      })),
+    [result.dimensionScores]
+  );
+
+  // Debug only (remove when stable)
+  // console.log({ loading, error, recs });
 
   return (
     <div className="min-h-screen p-4 py-12" style={{ background: "var(--gradient-subtle)" }}>
@@ -99,10 +101,11 @@ console.log({ loading, error, recs });
             />
           </div>
         </Card>
-<Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
-  <h2 className="text-2xl font-bold mb-6">Maturity by domain</h2>
-  <ResultsRadar data={radarData} />
-</Card>
+
+        <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
+          <h2 className="text-2xl font-bold mb-6">Maturity by domain</h2>
+          <ResultsRadar data={radarData} />
+        </Card>
 
         <Card className="p-8 mb-6" style={{ boxShadow: "var(--shadow-medium)" }}>
           <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
@@ -143,15 +146,11 @@ console.log({ loading, error, recs });
             Key Recommendations
           </h2>
 
-          {loading && <p className="text-sm text-muted-foreground"> </p>}
-          {error && <p className="text-sm text-destructive">{error}</p>}
-{error && (
-  <p className="text-xs text-muted-foreground mt-2">
-    Check Vercel Functions logs for /api/recommendations
-  </p>
-)}
-
-          {recs && recs.length > 0 ? (
+          {loading ? (
+            <p className="text-sm text-muted-foreground">Generating recommendations…</p>
+          ) : error ? (
+            <p className="text-sm text-destructive">{error}</p>
+          ) : recs && recs.length > 0 ? (
             <div className="space-y-4">
               {recs.slice(0, 3).map((r, index) => (
                 <div key={index} className="p-4 rounded-lg bg-secondary/50">
