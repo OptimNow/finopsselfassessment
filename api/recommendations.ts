@@ -34,7 +34,7 @@ export default async function handler(req: any, res: any) {
     const client = new OpenAI({ apiKey });
 
     const prompt = `
-Return exactly 3 FinOps recommendations as JSON only.
+Return exactly 5 FinOps recommendations as JSON only.
 
 Schema:
 {
@@ -65,6 +65,7 @@ Context: ${JSON.stringify(perCategory)}
     const parsed = safeJsonParse(candidate);
 
     if (parsed && Array.isArray(parsed.recommendations)) {
+      const recs = parsed.recommendations.slice(0, 5);
       return res.status(200).json(parsed);
     }
 

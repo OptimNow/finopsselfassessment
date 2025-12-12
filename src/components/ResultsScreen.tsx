@@ -115,7 +115,7 @@ const gapByDimension = useMemo(() => {
 
       answers: storedAnswers,
     }),
-    [result.overallScore, result.dimensionScores, storedAnswers]
+    [result.overallScore, result.dimensionScores, storedAnswers, gapByDimension]
   );
 
   const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
@@ -213,7 +213,7 @@ const gapByDimension = useMemo(() => {
             <p className="text-sm text-destructive">{error}</p>
           ) : recs && recs.length > 0 ? (
             <div className="space-y-4">
-              {recs.slice(0, 3).map((r, index) => (
+              {recs.slice(0, 5).map((r, index) => (
                 <div key={index} className="p-4 rounded-lg bg-secondary/50">
                   <div className="font-semibold">{r.title}</div>
                   <div className="text-sm mt-1">{r.why_it_matters}</div>
