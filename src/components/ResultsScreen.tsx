@@ -40,7 +40,13 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
     }
   }, []);
 
-  const perCategory = {
+const overallScore0to100 = useMemo(
+  () => Math.round((result.overallScore / 5) * 100),
+  [result.overallScore]
+);
+
+const perCategory = useMemo(
+  () => ({
     overall: {
       score_0_to_5: result.overallScore,
       score_0_to_100: Math.round((result.overallScore / 5) * 100),
@@ -51,11 +57,12 @@ const ResultsScreen = ({ result, onRestart }: ResultsScreenProps) => {
       score_0_to_100: Math.round((d.score / 5) * 100),
     })),
     answers: storedAnswers,
-  };
+  }),
+  [result.overallScore, result.dimensionScores, storedAnswers]
+);
 
-  const overallScore0to100 = Math.round((result.overallScore / 5) * 100);
+const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
 
-  const { recs, loading, error } = useRecommendations(overallScore0to100, perCategory);
 const radarData = result.dimensionScores.map((d) => ({
   category: d.dimension,
   score: Math.round((d.score / 5) * 100),
