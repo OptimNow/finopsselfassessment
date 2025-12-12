@@ -55,11 +55,46 @@ Overall score: ${overallScore}
 Per-category: ${JSON.stringify(perCategory)}
 `.trim();
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.2,
-    });
+const completion = await client.responses.create({
+  model: "gpt-4.1-mini",
+  input: prompt,
+  text: {
+    format: {
+      type: "json_schema",
+      name: "finops_recommendations",
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          recommendations: {
+            type: "array",
+            minItems: 3,
+            maxItems: 3,
+            items: {
+              type: "object",
+              additionalProperties: false,
+              properties: {
+                title: { type: "string" },
+                why_it_matters: { type: "string" },
+                first_step: { type: "string" },
+              },
+              required: ["title", "why_it_matters", "first_step"],
+            },
+          },
+        },
+        required: ["recommendations"],
+      },
+      strict: true,
+    },
+  },
+});
+
+const text = completion.output_text ?? "";
+const parsed = safeJsonParse(text);
+if (parsed && Array.isArray(parsed.recommendations)) {
+  return res.status(200).json(parsed);
+}
+
 
     const text = completion.choices?.[0]?.message?.content ?? "";
 

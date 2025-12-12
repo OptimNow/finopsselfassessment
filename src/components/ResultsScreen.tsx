@@ -136,7 +136,7 @@ console.log({ loading, error, recs });
             Key Recommendations
           </h2>
 
-          {loading && <p className="text-sm text-muted-foreground">Generating recommendations…</p>}
+          {loading && <p className="text-sm text-muted-foreground"> </p>}
           {error && <p className="text-sm text-destructive">{error}</p>}
 {error && (
   <p className="text-xs text-muted-foreground mt-2">
