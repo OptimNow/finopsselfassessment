@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Cloud, TrendingUp, Users, DollarSign } from "lucide-react";
-import { logoPastilleDataUrl } from "../assets/brandAssets";
 
 interface WelcomeScreenProps {
   onStart: () => void;
@@ -9,17 +8,16 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "var(--gradient-subtle)" }}>
-      <Card className="max-w-2xl w-full p-8 md:p-12" style={{ boxShadow: "var(--shadow-medium)" }}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <Card className="max-w-2xl w-full p-8 md:p-12 border">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
-{/*           <img
-               src="/Logo_Pastille verte.png"
-                alt="Cloud brand"
-               className="h-14 w-auto"
+            <img
+              src="/Logo_Pastille verte.png"
+              alt="OptimNow"
+              className="h-14 w-auto"
               loading="lazy"
-           />
-*/}
+            />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-3">Cloud FinOps Maturity Assessment</h1>
           <p className="text-muted-foreground text-lg">
@@ -92,12 +90,12 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button onClick={onStart} className="flex-1 text-lg h-12" style={{ background: "var(--gradient-primary)" }}>
+          <Button onClick={onStart} className="flex-1 text-lg h-12 bg-primary text-primary-foreground">
             Start Assessment
           </Button>
           <Button asChild variant="outline" className="flex-1 text-lg h-12 border-2">
-            <a href="https://calendar.app.google/qdN6JHxwZ1CZ1Fwx6" target="_blank" rel="noopener noreferrer">
-              Book a Call
+            <a href="https://github.com/OptimNow/ai-roi-calculator-mcp/invitations" target="_blank" rel="noopener noreferrer">
+              Get in Touch
             </a>
           </Button>
         </div>
